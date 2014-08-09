@@ -1,0 +1,259 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = de_DE
+% !TeX program = pdflatex
+
+% % % % % % % % %
+% offene Punkte
+% % % % % % % % %
+
+%TODO „Konzentrationshilfe für eine längere Sitzung“ → auf den Leerseiten einfügen
+%TODO Auzählungszeichen (z.B römisch 1) für Abschnitt „Infoblatt zum StartPaket“ vor dem 1. Kapitel
+
+% % % % % % % % % % % % % % % % % %
+% Dokumentation und Informationen
+% % % % % % % % % % % % % % % % % %
+
+% PDFs einbinden: keine technisch schöne Lösung, aber es geht schnell.
+% Verbesserung für die Zukunft: Wiki-Seiten in geeignetem Format (z.B. DocBook-XML) exportieren (evtl. sogar automatisiert) und in LaTeX parsen.
+
+% DRUCK
+%  auf A4, mit Druckrändern von ca. 7mm an den kurzen und 6mm an den langen Kanten
+%   (Die über die PDFs gelegten Seitennummern und Kapitelüberschriften sehr knapp an diesem Rand.)
+
+% pdfbook --short-edge stuve-handbuch.pdf
+% bzw.
+% pdfjam --booklet 'true' --landscape --suffix book --signature '4' --preamble '\usepackage{everyshi}
+% \makeatletter
+% \EveryShipout{\ifodd\c@page\pdfpageattr{/Rotate 180}\fi}
+% \makeatother
+% ' -- stuve-handbuch.pdf - 
+
+
+
+
+
+
+
+% Seitennummern in PDFs einfügen, Kapitelüberschriften Rand:
+%  http://stackoverflow.com/questions/1603301/how-to-add-page-numbers-to-postscript-pdf
+%  http://tex.stackexchange.com/questions/48641/chapter-title-in-rotated-vertical-box-at-the-margin
+
+% Doku zum Einbinden von PDF-Seiten mit pdfpages:
+%  http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages/pdfpages.pdf
+
+% pdfpages verwendet letzendlich \includegraphics aus graphicx
+%  ab Seite 9 aus http://ctan.mackichan.com/macros/latex/required/graphics/grfguide.pdf
+
+% Altenative, ursprüngliche Realisierung mit pdfjam:
+% pdfjam --outfile ./stuve-handbuch.pdf --fitpaper 'true' --twoside --paper a4paper --no-tidy --frame 'false' --rotateoversize 'false' --suffix joined -- 00-intro.pdf - 10-infoblatt-startpaket.pdf - aa-fuellseiten.pdf 1 20-grundsaetzliches-fsr.pdf - 40-aufgabenverteilung.pdf - 55-beschlusssammung-stex.pdf -  60-vs-dossier-rechtliche-rahmenbedingungen.pdf 1-17 aa-fuellseiten.pdf 2 70-organisationssatzung.pdf - 75-finanzordnung.pdf - 91-struktur	%fitpaper=true,-uebersicht.pdf - 92-struktur-akad_selbstverw.pdf - 93-struktur-besetzung-kontrolle.pdf - 99-extro.pdf -
+
+
+\documentclass[
+	8pt,
+	a5paper,
+	twoside
+	]
+	{book}
+
+\input{./tex/praeambel.tex}
+
+\begin{document}
+
+%\layout{}
+
+\frontmatter
+
+\pagestyle{empty}
+
+\input{./tex/titelblatt.tex}
+
+\input{./tex/einleitung.tex}
+
+
+% % % % % % % % % % % % %
+%
+% AB HIER PDFs EINBINDEN
+%
+% % % % % % % % % % % % %
+
+
+% Optionen für alle einzubindenden PDFs
+\includepdfset{
+	pages= - ,								% standardmäßig alle Seiten eines PDFs einbinden
+	pagecommand=\thispagestyle{plain},
+	%openright,								% lieber lassen :P
+	%frame=true,							% für den Entwurfsmodus, vor dem Druck deaktivieren
+	offset = 0.2cm 0,						% Zugabe für's Binden !!! weitere offsets unten sind zusätzlich
+	trim = 1cm 0cm 1cm 0cm,
+}
+
+% die einzelnen PDFs beschneiden:
+%	trim = l u r o
+%		→ links, unten, rechts, oben etwas abschneiden, muss leider pro PDF definiert werden.
+
+% beschnittene PDFs werden mit dem folgenden pauschal skaliert, so dass sie die Seite gut Ausnutzen
+% nur eine Dimension (height) angegeben -> für PDFs gilt keepaspectratio, bei Grafiken einzeln drauf achten
+\let\ORIincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{\ORIincludegraphics[height=0.90\paperheight,#1]{#2}}
+
+
+
+%\chapter{Infoblatt zum StartPaket}\newline\null
+\addcontentsline{toc}{chapter}{StartPaket: Infoblatt\newline{\scriptsize\textit{\null\hspace{2em}Anleitung zum Kennenlernen wichtiger Einrichtungen und Arbeitsmaterialien}}}
+%{\tiny\textit{Anleitung zum Kennenlernen wichtiger Einrichtungen und Arbeitsmaterialien}}
+\clearpage
+\includepdf
+	[
+		trim = 2cm 1.3cm 2cm 0.8cm,
+		pagecommand=\thispagestyle{empty}
+	]
+	{./teile/10-infoblatt-startpaket.pdf}
+
+
+
+\mainmatter
+
+\pagestyle{plain}
+
+\chapter{Gremienarbeit}
+%\addcontentsline{toc}{chapter}{Gremienarbeit}
+
+\clearpage
+
+\addcontentsline{toc}{section}{Grundsätzliches für die Arbeit im FSR\newline{\scriptsize\textit{\null\hspace{2em}für die Arbeit im FSR bewährte “best practices”}}}
+
+\includepdf
+	[
+		trim = 2cm 1cm 2cm 1cm,
+		height = 0.95\paperheight,
+		offset = -0.2cm 0cm
+	]
+	{./teile/20-grundsaetzliches-fsr.pdf}
+
+\addcontentsline{toc}{section}{Grundsätzliches für die Arbeit im StuPa\newline{\scriptsize\textit{\null\hspace{2em}für die Arbeit im StuPa bewährte “best practices”}}}
+
+
+\addcontentsline{toc}{section}{Aufgabenverteilung zwischen StuPa und FSR}
+
+\includepdf
+	[
+		trim = 2cm 1.3cm 2cm 0.8cm
+	]
+	{./teile/40-aufgabenverteilung.pdf}
+
+
+\chapter{Beschlusssammlungen}
+
+
+\clearpage
+
+%\addcontentsline{toc}{chapter}{Beschlusssammlungen}
+
+%\addcontentsline{toc}{chapter}{Beschlüsse des StuPa}
+%
+%\addcontentsline{toc}{chapter}{Beschlüsse des FSR}
+%
+%\addcontentsline{toc}{chapter}{Beschlüsse der StEx}
+
+\includepdf
+	[
+		trim = 2cm 1.3cm 2cm 0.8cm
+	]
+	{./teile/51-beschlusssammlung-stupa.pdf}
+
+\includepdf
+	[
+		trim = 2cm 1.3cm 2cm 0.8cm
+	]
+	{./teile/55-beschlusssammung-stex.pdf}
+
+
+\chapter{Rechtliche Grundlagen}
+
+\textit{Stand 27.11.2013, d.h. Änderungen der LHG-Novelle vom April 2014 nicht enthalten. Dieser Teil wird evtl. erst nach Lesen der Organisationssatzung klar, kann aber auch vorab schon den „großen Rahmen“ erläutern.}
+
+\clearpage
+
+\includepdf
+	[
+		pages = 1-17,
+		trim = 2cm 2cm 2cm 1cm
+	]
+	{./teile/60-vs-dossier-rechtliche-rahmenbedingungen.pdf}
+
+
+\chapter{Organisationssatzung}
+
+\textit{Obacht: Anhang A der Organisationssatzung ist nicht mehr aktuell. Masterstudiengang Software Engineering (neu) und Masterstudiengang Cognitive Systems (neu) sind der FS Informatik zugeordnet; Masterstudiengang Energy Science and Technology (bisher FS Elektrotechnik) ist der FS Chemie zugeordnet.}
+
+\clearpage
+
+\includepdf
+	[
+		trim = 2cm 2cm 2cm 1cm
+	]
+	{./teile/70-organisationssatzung.pdf}
+
+
+\chapter{Beitragsordnung, Finanzordnung}
+
+
+\clearpage
+
+\includepdf
+[
+trim = 2cm 2cm 2cm 1cm
+]
+{./teile/74-beitragsordnung.pdf}
+
+\includepdf
+	[
+		trim = 2cm 2cm 2cm 1cm
+	]
+	{./teile/75-finanzordnung.pdf}
+
+
+\chapter{Grafiken}
+
+\clearpage
+
+\addcontentsline{toc}{section}{Übersicht}
+
+\includepdf
+	[
+		height = 0.9\paperheight,
+		width = 0.8\paperwidth,
+		keepaspectratio
+	]
+	{./teile/91-struktur-uebersicht.pdf}
+
+
+\addcontentsline{toc}{section}{Studentische und akademische Selbstverwaltung}
+
+\includepdf
+	[
+		height = 0.9\paperheight,
+		width = 0.8\paperwidth,
+		keepaspectratio
+	]
+	{./teile/92-struktur-akad_selbstverw.pdf}
+
+
+\addcontentsline{toc}{section}{Details: Besetzung, Interaktion und Kontrolle}
+
+\includepdf
+	[
+		height = 0.9\paperheight,
+		width = 0.8\paperwidth,
+		keepaspectratio
+	]
+	{./teile/93-struktur-besetzung-kontrolle.pdf}
+
+
+
+\backmatter
+
+\input{./tex/ruecken.tex}
+
+
+\end{document}

@@ -1,0 +1,189 @@
+\title{StuVe-Handbuch}
+\date{\today}
+\author{et al.\email{stuve.kontakt@uni-ulm.de}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}					% für echte Umlaute und mehr…
+\usepackage{lmodern}						% schönere Schrift, v.a in PDFs
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[ngerman]{babel}					% deutsche Sprachvariante (Inhaltsverzeichnis, …)
+
+\usepackage{geometry}
+\usepackage{layout}							% für \layout{} → Darstellung der aktuellen Ränder und Co.
+\usepackage{totcount}						% Zählen der Gesamtzahl, z.B. von Kapiteln
+\regtotcounter{chapter}
+
+\usepackage[final]{pdfpages}
+\usepackage{graphicx}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+% Überschriften und Inhaltsverzeichnis formatieren
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\addto\captionsngerman{\renewcommand{\chaptername}{Teil}}
+
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+\renewcommand*{\chaptermark}[1]{ \markboth{\thechapter: ##1}{} }%
+
+
+%\titlespacing*{\chapter}{0pt}{}{20pt}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\flushright \chaptertitlename\ \thechapter}{5pt}{\flushright \Huge}
+
+% Neues Kommando zum individuellen Einfügen des Inahltsverzeichnisses:
+\makeatletter
+\newcommand*{\toccontents}{\@starttoc{toc}}
+\makeatother
+
+\usepackage{titletoc}
+
+%\titlecontents{⟨Abschnitt⟩}[⟨Links⟩]{⟨Gesamtformatierung⟩}{⟨Vor dem Label⟩}{⟨Nach dem Label⟩}{⟨Abstandsfüller & Seitenzahl⟩}[⟨Rechts⟩]
+\titlecontents{chapter}[1.5em]{\small}{\contentslabel{1em}}{}{\titlerule*[0.3pc]{.}\contentspage}
+\titlecontents{section}[2.5em]{\footnotesize}{\contentslabel{1em}}{}{\titlerule*[0.3pc].{}\contentspage}
+%\titlecontents{subsection}[6.7em]{}{\contentslabel{2.95em}}{}{\titlerule*[0.3pc]{.}\contentspage} 
+%\titlecontents{subsubsection}[10.6em]{}{\contentslabel{3.8em}}{}{\titlerule*[0.3pc]{.}\contentspage}
+%\titlecontents{paragraph}[15.25em]{}{\contentslabel{4.6em}}{}{\titlerule*[0.3pc]{.}\contentspage}
+
+
+
+% % % % % % % % % % % % %
+% Abschnittsmarkierungen
+% % % % % % % % % % % % %
+
+\usepackage{tikz}
+\usepackage{color}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usepackage{lipsum}
+
+\usepackage{etoolbox}
+% Patch the sectioning commands to provide a hook to be used later
+\preto{\chapter}{\def\leveltitle{\chaptertitle}}
+\preto{\section}{\def\leveltitle{\sectiontitle}}
+\preto{\subsection}{\def\leveltitle{\subsectiontitle}}
+\preto{\subsubsection}{\def\leveltitle{\subsubsectiontitle}}
+
+\makeatletter
+% \@sect is called with normal sectioning commands
+% Argument #8 to \@sect is the title
+% Thus \section{Title} will do \gdef\sectiontitle{Title}
+\pretocmd{\@sect}
+{\expandafter\gdef\leveltitle{#8}}
+{}{}
+% \@ssect is called with *-sectioning commands
+% Argument #5 to \@ssect is the title
+\pretocmd{\@ssect}
+{\expandafter\gdef\leveltitle{#5}}
+{}{}
+% \@chapter is called by \chapter (without *)
+% Argument #2 to \@chapter is the title
+\pretocmd{\@chapter}
+{\expandafter\gdef\leveltitle{#2}}
+{}{}
+% \@schapter is called with \chapter*
+% Argument #1 to \@schapter is the title
+\pretocmd{\@schapter}
+{\expandafter\gdef\leveltitle{#1}}
+{}{}
+\makeatother
+
+%\newcommand\MyColor{
+%	\ifcase\thechapter blue!30\or red!30\or olive!30\or magenta!30\else yellow!30\fi} 
+\newcommand\MyColor{ black!30 }
+
+\fancypagestyle{plain}{%
+	%% Clear all headers and footers
+	\fancyhf{}
+	%% Right headers on odd pages
+	\fancyhead[RO]{%
+			\begin{tikzpicture}[overlay,remember picture]
+			\node[
+				fill=\MyColor, text=black,
+				font=\footnotesize,
+				inner ysep=4pt, inner xsep=4pt,
+				rounded rectangle,
+				anchor = west,
+				%xshift=-0mm,
+				%yshift=-0mm,
+				%text width=3cm,
+				text height=0.3cm,
+				rotate=90
+			]
+			% 21 cm an der kurzen Kante der A4 bzw. langen Kante der A5 Seite:
+			%   21 cm - 6 mm Druckrand oben - 6 mm Druckrand unten - 6 mm Länge Bobbel Seitenzahl = 19,2 cm
+			at ($ (current page.north east) + (-0.8cm, -0.7cm) + (-0.15cm, -0.3cm) + (0cm, -19.3 / \totvalue{chapter} * \thechapter cm) $)
+			{\sffamily\normalsize\nouppercase{\thechapter: \chaptertitle}};
+			\node[
+				fill=\MyColor,text=black,
+				font=\footnotesize,
+				inner ysep=4pt, inner xsep=4pt,
+				rounded rectangle,
+				%anchor = north east,
+				%xshift=-0mm,
+				%yshift=-0mm,
+				%text width=5cm,
+				text height=0.3cm,
+				rotate=0
+			]
+			at ($ (current page.north east) + (-0.8cm, -0.7cm) + (-0.15cm, -0.15cm) $)
+			{\sffamily\normalsize\nouppercase{\thepage}};
+			\end{tikzpicture}
+	}
+	%% Left headers on even pages
+	\fancyhead[LE]{%
+			\begin{tikzpicture}[overlay,remember picture]
+			\node[
+			fill=\MyColor,text=black,
+			font=\footnotesize,
+			inner ysep=4pt, inner xsep=4pt,
+			rounded rectangle,
+			anchor=east,
+			%xshift=-0mm,
+			%yshift=-0mm,
+			%text width=3cm,
+			text height=0.3cm,
+			rotate=270
+			]
+			at ($ (current page.north west) + (0.8cm, -0.7cm) + (0.15cm, -0.3cm) + (0cm, -19.3 / \totvalue{chapter} * \thechapter cm) $)
+			{\sffamily\normalsize\nouppercase{\thechapter: \chaptertitle}};
+			\node[
+			fill=\MyColor,text=black,
+			font=\footnotesize,
+			inner ysep=4pt, inner xsep=4pt,
+			rounded rectangle,
+			%anchor= ,
+			%xshift=-0mm,
+			%yshift=-0mm,
+			%text width=5cm,
+			text height=0.3cm,
+			rotate=0
+			]
+			at ($ (current page.north west) + (0.8cm, -0.7cm) + (0.15cm, -0.15cm) $)
+			{\sffamily\normalsize\nouppercase{\thepage} };
+			\end{tikzpicture}
+	}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+	%\fancyfoot[R]{\thepage}
+}
+% ----------------------------------------------------------------
+
+
+\usepackage{hyperref}
+
+\setlength{\parindent}{0pt}        %  kein Einruecken bei Absaetzen 
+
+
+\hypersetup{
+	pdftitle=StuVe-Handbuch,
+	pdfauthor=et. al.,
+	pdfsubject={Handbuch},
+	pdfproducer={pdflatex},
+	%	colorlinks=false,
+	pdfborder=0 0 0	% keine Box um die Links!
+}
+
+\newcommand{\leadingzero}[1]{\ifnum #1<10 0\the#1\else\the#1\fi} 
