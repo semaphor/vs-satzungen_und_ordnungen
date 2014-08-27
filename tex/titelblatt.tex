@@ -3,9 +3,8 @@
 % !TeX spellcheck = de_DE
 % !TeX program = pdflatex
 
-{
-\newgeometry{left=2.7cm, right=2cm, top=1cm, bottom=1cm}
-\pagestyle{empty}
+%\newgeometry{left=2.7cm, right=2cm, top=1cm, bottom=1cm}
+\thispagestyle{empty}
 
 %----------------------------------------------------------------------
 %
@@ -64,9 +63,9 @@
 %\newgeometry{left=2.7cm, right=2cm, top=1cm, bottom=1cm}
 
 \newpage
-\footnotesize
-\bigskip
+\thispagestyle{empty}
 
+\bigskip
 
 \begin{center}
 
@@ -108,12 +107,13 @@ Mailinglisten\\
 \null
 \vfill
 \begin{minipage}{0.8\textwidth}
-\footnotesize Dieses Heft gehört:~\hrulefill~;-)
+Dieses Heft gehört:~\hrulefill~;-)
 \end{minipage}
 \vspace{2em}
 \null
 
 \end{center}
 
-\restoregeometry
-}
+\clearpage
+
+%\restoregeometry

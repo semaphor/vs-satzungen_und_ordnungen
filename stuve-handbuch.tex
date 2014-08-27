@@ -49,7 +49,7 @@
 
 
 \documentclass[
-	8pt,
+	10pt,
 	a5paper,
 	twoside
 	]
@@ -63,9 +63,13 @@
 
 \frontmatter
 
-\pagestyle{empty}
+\pagestyle{plain}		% Standardseitenlayout
+\footnotesize			% Standardschriftgröße
 
 \input{./tex/titelblatt.tex}
+
+
+\setcounter{page} {1}
 
 \input{./tex/einleitung.tex}
 
@@ -97,7 +101,6 @@
 \renewcommand{\includegraphics}[2][]{\ORIincludegraphics[height=0.90\paperheight,#1]{#2}}
 
 
-
 %\chapter{Infoblatt zum StartPaket}\newline\null
 \addcontentsline{toc}{chapter}{StartPaket: Infoblatt\newline{\scriptsize\textit{\null\hspace{2em}Anleitung zum Kennenlernen wichtiger Einrichtungen und Arbeitsmaterialien}}}
 %{\tiny\textit{Anleitung zum Kennenlernen wichtiger Einrichtungen und Arbeitsmaterialien}}
@@ -105,15 +108,14 @@
 \includepdf
 	[
 		trim = 2cm 1.3cm 2cm 0.8cm,
-		pagecommand=\thispagestyle{empty}
 	]
 	{./teile/10-infoblatt-startpaket.pdf}
 
 
+\input{./tex/suchen-lesen-verstehn-umsetzten.tex}
+
 
 \mainmatter
-
-\pagestyle{plain}
 
 \chapter{Gremienarbeit}
 %\addcontentsline{toc}{chapter}{Gremienarbeit}
@@ -162,15 +164,21 @@
 	{./teile/51-beschlusssammlung-stupa.pdf}
 
 \includepdf
+[
+trim = 2cm 1.3cm 2cm 0.8cm
+]
+{./teile/53-beschlusssammlung-fsr.pdf}
+
+\includepdf
 	[
 		trim = 2cm 1.3cm 2cm 0.8cm
 	]
-	{./teile/55-beschlusssammung-stex.pdf}
+	{./teile/55-beschlusssammlung-stex.pdf}
 
 
 \chapter{Rechtliche Grundlagen}
 
-\textit{Stand 27.11.2013, d.h. Änderungen der LHG-Novelle vom April 2014 nicht enthalten. Dieser Teil wird evtl. erst nach Lesen der Organisationssatzung klar, kann aber auch vorab schon den „großen Rahmen“ erläutern.}
+Dieser Teil hat wurde zuletze per 27.11.2013 aktualisiert, d.h. Änderungen der LHG-Novelle vom April 2014 sind nicht enthalten. Dieser Teil wird evtl. erst nach Lesen der Organisationssatzung klar, kann aber auch vorab schon den „großen Rahmen“ erläutern.
 
 \clearpage
 

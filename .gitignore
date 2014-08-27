@@ -1,5 +1,7 @@
 teile/nicht_mehr_verwendet
 
+*.xcf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

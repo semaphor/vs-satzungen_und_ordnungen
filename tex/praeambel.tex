@@ -1,3 +1,7 @@
+\usepackage{perpage}
+\MakePerPage{footnote}		%perpage package command: fußnoten
+
+
 \title{StuVe-Handbuch}
 \date{\today}
 \author{et al.\email{stuve.kontakt@uni-ulm.de}}
@@ -8,7 +12,9 @@
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage[ngerman]{babel}					% deutsche Sprachvariante (Inhaltsverzeichnis, …)
 
-\usepackage{geometry}
+%\usepackage[left=2.5cm, right=1.7cm, top=1cm, bottom=1cm]{geometry}
+\usepackage[left=2.2cm, right=2cm, top=1cm, bottom=1cm]{geometry}
+%\usepackage{geometry}
 \usepackage{layout}							% für \layout{} → Darstellung der aktuellen Ränder und Co.
 \usepackage{totcount}						% Zählen der Gesamtzahl, z.B. von Kapiteln
 \regtotcounter{chapter}
@@ -100,6 +106,7 @@
 	%% Right headers on odd pages
 	\fancyhead[RO]{%
 			\begin{tikzpicture}[overlay,remember picture]
+			\ifdefined\chaptertitle
 			\node[
 				fill=\MyColor, text=black,
 				font=\footnotesize,
@@ -114,8 +121,10 @@
 			]
 			% 21 cm an der kurzen Kante der A4 bzw. langen Kante der A5 Seite:
 			%   21 cm - 6 mm Druckrand oben - 6 mm Druckrand unten - 6 mm Länge Bobbel Seitenzahl = 19,2 cm
-			at ($ (current page.north east) + (-0.8cm, -0.7cm) + (-0.15cm, -0.3cm) + (0cm, -19.3 / \totvalue{chapter} * \thechapter cm) $)
+			at ($ (current page.north east) + (-0.9cm, -0.7cm) + (-0.15cm, -0.3cm) + (0cm, -19.3 / \totvalue{chapter} * \thechapter cm) $)
 			{\sffamily\normalsize\nouppercase{\thechapter: \chaptertitle}};
+%			{\sffamily\normalsize\nouppercase{\thechapter: }};
+			\fi
 			\node[
 				fill=\MyColor,text=black,
 				font=\footnotesize,
@@ -128,13 +137,14 @@
 				text height=0.3cm,
 				rotate=0
 			]
-			at ($ (current page.north east) + (-0.8cm, -0.7cm) + (-0.15cm, -0.15cm) $)
+			at ($ (current page.north east) + (-0.9cm, -0.7cm) + (-0.15cm, -0.15cm) $)
 			{\sffamily\normalsize\nouppercase{\thepage}};
 			\end{tikzpicture}
 	}
 	%% Left headers on even pages
 	\fancyhead[LE]{%
 			\begin{tikzpicture}[overlay,remember picture]
+			\ifdefined\chaptertitle
 			\node[
 			fill=\MyColor,text=black,
 			font=\footnotesize,
@@ -147,8 +157,10 @@
 			text height=0.3cm,
 			rotate=270
 			]
-			at ($ (current page.north west) + (0.8cm, -0.7cm) + (0.15cm, -0.3cm) + (0cm, -19.3 / \totvalue{chapter} * \thechapter cm) $)
+			at ($ (current page.north west) + (0.9cm, -0.7cm) + (0.15cm, -0.3cm) + (0cm, -19.3 / \totvalue{chapter} * \thechapter cm) $)
 			{\sffamily\normalsize\nouppercase{\thechapter: \chaptertitle}};
+%			{\sffamily\normalsize\nouppercase{\thechapter:}};
+			\fi
 			\node[
 			fill=\MyColor,text=black,
 			font=\footnotesize,
@@ -161,7 +173,7 @@
 			text height=0.3cm,
 			rotate=0
 			]
-			at ($ (current page.north west) + (0.8cm, -0.7cm) + (0.15cm, -0.15cm) $)
+			at ($ (current page.north west) + (0.9cm, -0.7cm) + (0.15cm, -0.15cm) $)
 			{\sffamily\normalsize\nouppercase{\thepage} };
 			\end{tikzpicture}
 	}
