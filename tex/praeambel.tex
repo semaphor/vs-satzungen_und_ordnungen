@@ -12,9 +12,17 @@
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage[ngerman]{babel}					% deutsche Sprachvariante (Inhaltsverzeichnis, …)
 
-%\usepackage[left=2.5cm, right=1.7cm, top=1cm, bottom=1cm]{geometry}
+
 \usepackage[left=2.2cm, right=2cm, top=1cm, bottom=1cm]{geometry}
-%\usepackage{geometry}
+% Diese „Seitengeometrie“ passt ganz gut zu einem Heftchen aus DIN A5 Seiten mit einer Ringbindung (Plastik), wie man sie im Druckraum der StuVe herstellen kann.
+% Abschätzung / Uberlegungen:
+%  * Die Rinbindung wird bei 38 Blatt DIN A5 (76 Seiten mi PDF) mit 80 g/m² mit einem 10 mm Binderücken aus Plastik ganz gut.
+%  * Die Löcher für die Ringbindung nehmen ca. 7 mm vom inneren Papierrand in der Breite weg.
+%  * Am äußeren Rand der Seiten nehmen dir überlagerten Seitennummern und die denkrechten Abschnittsüberschriften optisch noch Platz ein. Die entsprechenden Maße finden sich unten (Definition des eigenen 'fancypagestyle'),
+%  * Eigentlich ist's so gedacht, dass das Heft ohne nachträgliche Skalierung auf dem Weg zum Drucker gedruckt wird, jedoch passiert das je nach Drucker und Druckertreiber evtl. trotzdem.
+
+
+
 \usepackage{layout}							% für \layout{} → Darstellung der aktuellen Ränder und Co.
 \usepackage{totcount}						% Zählen der Gesamtzahl, z.B. von Kapiteln
 \regtotcounter{chapter}
