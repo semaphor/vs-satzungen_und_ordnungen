@@ -1,17 +1,42 @@
-\usepackage{perpage}
-\MakePerPage{footnote}		%perpage package command: fußnoten
+% !TeX root = ../stuve-handbuch-latex.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = de_DE
+% !TeX program = pdflatex
 
 
-\title{StuVe-Handbuch}
+
+% Dokument-Metadaten:
+% % % % % % % % % % %
+
+\title{StuVe-Handbuch: Gremien, Beschl\"usse und Statuten}
 \date{\today}
 \author{et al.\email{stuve.kontakt@uni-ulm.de}}
+
+
+% Schrifen, Sprache und Co.:
+% % % % % % % % % % % % % % %
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}					% für echte Umlaute und mehr…
 \usepackage{lmodern}						% schönere Schrift, v.a in PDFs
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage[ngerman]{babel}					% deutsche Sprachvariante (Inhaltsverzeichnis, …)
+\usepackage{setspace}
+\usepackage{tipa}							% für IPA Zeichen
 
+
+% Textbild:
+% % % % % %
+
+\setlength{\parindent}{0pt}        %  kein Einruecken bei Absaetzen 
+
+
+% „Seiteneinstellungen“:
+% % % % % % % % % % % %
+
+% Fußnoten:
+\usepackage{perpage}
+\MakePerPage{footnote}		%perpage package command: fußnoten
 
 \usepackage[left=2.2cm, right=2cm, top=1cm, bottom=1cm]{geometry}
 % Diese „Seitengeometrie“ passt ganz gut zu einem Heftchen aus DIN A5 Seiten mit einer Ringbindung (Plastik), wie man sie im Druckraum der StuVe herstellen kann.
@@ -31,8 +56,7 @@
 \usepackage{graphicx}
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-% Überschriften und Inhaltsverzeichnis formatieren
+% Überschriften und Inhaltsverzeichnis formatieren:
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \addto\captionsngerman{\renewcommand{\chaptername}{Teil}}
@@ -41,7 +65,6 @@
 \usepackage{fancyhdr}
 
 \renewcommand*{\chaptermark}[1]{ \markboth{\thechapter: ##1}{} }%
-
 
 %\titlespacing*{\chapter}{0pt}{}{20pt}
 \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\flushright \chaptertitlename\ \thechapter}{5pt}{\flushright \Huge}
@@ -53,7 +76,8 @@
 
 \usepackage{titletoc}
 
-%\titlecontents{⟨Abschnitt⟩}[⟨Links⟩]{⟨Gesamtformatierung⟩}{⟨Vor dem Label⟩}{⟨Nach dem Label⟩}{⟨Abstandsfüller & Seitenzahl⟩}[⟨Rechts⟩]
+% Merkhilfe:
+% \titlecontents{⟨Abschnitt⟩}[⟨Links⟩]{⟨Gesamtformatierung⟩}{⟨Vor dem Label⟩}{⟨Nach dem Label⟩}{⟨Abstandsfüller & Seitenzahl⟩}[⟨Rechts⟩]
 \titlecontents{chapter}[1.5em]{\small}{\contentslabel{1em}}{}{\titlerule*[0.3pc]{.}\contentspage}
 \titlecontents{section}[2.5em]{\footnotesize}{\contentslabel{1em}}{}{\titlerule*[0.3pc].{}\contentspage}
 %\titlecontents{subsection}[6.7em]{}{\contentslabel{2.95em}}{}{\titlerule*[0.3pc]{.}\contentspage} 
@@ -61,10 +85,8 @@
 %\titlecontents{paragraph}[15.25em]{}{\contentslabel{4.6em}}{}{\titlerule*[0.3pc]{.}\contentspage}
 
 
-
-% % % % % % % % % % % % %
-% Abschnittsmarkierungen
-% % % % % % % % % % % % %
+% Abschnittsmarkierungen (äußerer Seitenrand)
+% % % % % % % % % % % % % % % % % % % % % % %
 
 \usepackage{tikz}
 \usepackage{color}
@@ -192,10 +214,11 @@
 % ----------------------------------------------------------------
 
 
+
+% Hyperref-Paket (muss immer als letztes geladen werden)
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \usepackage{hyperref}
-
-\setlength{\parindent}{0pt}        %  kein Einruecken bei Absaetzen 
-
 
 \hypersetup{
 	pdftitle=StuVe-Handbuch,
@@ -206,4 +229,9 @@
 	pdfborder=0 0 0	% keine Box um die Links!
 }
 
+
+% Eigene Kommandos:
+% % % % % % % % % %
+
+% Führende Null für's Datum:
 \newcommand{\leadingzero}[1]{\ifnum #1<10 0\the#1\else\the#1\fi} 
