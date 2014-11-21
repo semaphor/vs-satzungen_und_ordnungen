@@ -1,7 +1,7 @@
 Handbuch für die StuVe der uulm
 ===============================
 
-**[Direkt zum Handbuch (PDF)](https://github.com/semaphor/vs-stuve-handbuch/raw/master/stuve-handbuch.pdf)**
+**[Direkt zum Handbuch (PDF)](https://github.com/semaphor/vs-stuve-handbuch/raw/master/stuve-handbuch-1.pdf)**
 
 Weiteres, Informationen, Kontakt: http://www.uni-ulm.de/stuve
 

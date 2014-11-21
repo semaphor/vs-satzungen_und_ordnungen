@@ -2,6 +2,7 @@
 % !TeX spellcheck = de_DE
 % !TeX program = pdflatex
 
+
 % % % % % % % % %
 % offene Punkte
 % % % % % % % % %
@@ -20,7 +21,7 @@
 %  auf A4, mit Druckrändern von ca. 7mm an den kurzen und 6mm an den langen Kanten
 %   (Die über die PDFs gelegten Seitennummern und Kapitelüberschriften sehr knapp an diesem Rand.)
 
-% pdfbook --short-edge stuve-handbuch.pdf
+% pdfbook --short-edge stuve-handbuch-1.pdf
 % bzw.
 % pdfjam --booklet 'true' --landscape --suffix book --signature '4' --preamble '\usepackage{everyshi}
 % \makeatletter
@@ -101,9 +102,8 @@
 \renewcommand{\includegraphics}[2][]{\ORIincludegraphics[height=0.90\paperheight,#1]{#2}}
 
 
-%\chapter{Infoblatt zum StartPaket}\newline\null
 \addcontentsline{toc}{chapter}{StartPaket: Infoblatt\newline{\scriptsize\textit{\null\hspace{2em}Anleitung zum Kennenlernen wichtiger Einrichtungen und Arbeitsmaterialien}}}
-%{\tiny\textit{Anleitung zum Kennenlernen wichtiger Einrichtungen und Arbeitsmaterialien}}
+
 \clearpage
 \includepdf
 	[
